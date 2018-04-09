@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="oxxo.studio">
+    <meta name="copyright" content="oxxo.studio">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <title>純CSS繪製圓圖</title>
+    <style>
+    .pei2 {
+        width: 120px;
+        height: 120px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        /*直角弧度*/
+        border-radius: 60px;
+        margin: 0px auto 0;
+        float: left;
+        text-align: center;
+    }
+
+    /*左半圓*/
+    
+    .left-pei {
+        background: #e5c3b2;
+        height: 100px;
+        width: 100px;
+        border: 0px solid #000000;
+        margin-left: 0px;
+        text-align: center;
+        line-height: 100px;
+        -moz-border-radius: 100px 0px 0px 100px;
+        -webkit-border-radius: 100px 0px 0px 100px;
+        border-radius: 100px 0px 0px 100px;
+    }
+    /*右半圓*/
+    
+    .right-pei {
+        background: #e5c3b2;
+        height: 100px;
+        width: 100px;
+        margin-left: 0px;
+        border: 0px solid #000000;
+        text-align: center;
+        line-height: 100px;
+        transform: rotate(0deg); /*旋轉*/
+    }
+    
+    .right-pei-2 {
+        background: #e5c3b2;
+        height: 100px;
+        width: 100px;
+        margin-left: -100px;
+        border: 0px solid #000000;
+        float: left;
+        text-align: center;
+        line-height: 100px;
+        -moz-border-radius: 0px 100px 100px 0px;
+        -webkit-border-radius: 0px 100px 100px 0px;
+        border-radius: 0px 100px 100px 0px;
+        z-index: 100;
+    }
+    </style>
+
+</head>
+
+<body>
+    <div id="pei001" class="left-pei">圓形
+    </div>
+    <div id="pei002" class="right-pei">正方形
+    </div>
+
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/tw/"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/tw/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">世界最大羅盤</span>由<a xmlns:cc="http://creativecommons.org/ns#" href="http://www2010.yuntech.edu.tw/index.php?option=com_content&amp;task=view&amp;id=18180&amp;Itemid=1055" property="cc:attributionName" rel="cc:attributionURL">雲林科技大學</a>製作，以<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/tw/">創用CC 姓名標示-相同方式分享 3.0 台灣 授權條款</a>釋出。
+    
+</body>
+
+</html>

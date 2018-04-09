@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)http://demo.abgne.tw/css3/apply/0010/0010_1.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="Author" content="男丁格爾&#39;s 脫殼玩">
+<title>[CSS3]用 CSS3 畫圖示 - 太極圖</title>
+<style>
+	body {
+    background-color: #f1f1f1;
+}
+.taichi {
+    position: relative;
+    width: 48px;
+    /* 50 - 2 */
+    height: 96px;
+    /* 100 - 2 - 2 */
+    background: #fff;
+    border:2px solid #000;
+    border-width: 2px 50px 2px 2px;
+    border-radius: 50%;
+}
+.white-circle {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    background: #fff;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+}
+.white-circle::after {
+    content:"";
+    position: absolute;
+    top: 17px;
+    /* (50-16)/2 */
+    left: 17px;
+    /* (50-16)/2 */
+    background: #000;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+}
+.black-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: #000;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+}
+.black-circle::after {
+    content:"";
+    position: absolute;
+    top: 17px;
+    /* (50-16)/2 */
+    left: 17px;
+    /* (50-16)/2 */
+    background: #fff;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+}
+.taichi {
+    margin: 30px auto;
+    -webkit-animation: rotate 2s infinite linear;
+    -moz-animation: rotate 2s infinite linear;
+    -o-animation: rotate 2s infinite linear;
+    animation: rotate 2s infinite linear;
+}
+@-webkit-keyframes rotate {
+    form {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@-moz-keyframes rotate {
+    form {
+        -moz-transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}
+@-o-keyframes rotate {
+    form {
+        -o-transform: rotate(0deg);
+    }
+    to {
+        -o-transform: rotate(360deg);
+    }
+}
+@keyframes rotate {
+    form {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+</style>
+<link type="text/css" rel="stylesheet" href="chrome-extension://kfgmnlgjmofpiicpgohgfpeabgpmhjdp/style.css"><script type="text/javascript" charset="utf-8" src="chrome-extension://kfgmnlgjmofpiicpgohgfpeabgpmhjdp/page_context.js"></script></head>
+<body gtools_scp_screen_capture_injected="true">
+	<div class="taichi">
+		<div class="white-circle"></div>
+		<div class="black-circle"></div>
+	</div>
+
+</body></html>

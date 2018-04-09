@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Luopan</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/luopan.css">
+    <script src="./scripts/luopan.js"></script>
+
+    <script>
+        $(function () {
+
+            tenline.reset_tenline();
+            luopan.set_src();
+            //luopan.reset_luopan();
+
+            //luopan.set_transform(0.035); //修正刻度起始位置
+            window.onresize = function (event) {
+                tenline.reset_tenline();
+                luopan.set_src();
+                //luopan.reset_luopan();
+            }
+
+            //auto_run();
+
+            /*
+            window.setTimeout(function() {
+                stop_run();
+            }, 5000);
+            */
+
+            //alert('init jquery');
+
+            // //取得mouse每次的距離移動數據
+            // var my_mouseX = 0; //初始0
+            // $('body').mousemove(function (e) {
+
+            //     //console.log(e.clientX);
+            //     var mouse_now_X = e.clientX;
+            //     //每次的移動點
+            //     var move_number = 1;
+
+            //     //轉動羅盤
+            //     if (mouse_now_X > my_mouseX) {
+            //         luopan.deg_number -= move_number;
+            //         //luopan.set_transform(move_number);
+            //     } else {
+            //         luopan.deg_number += move_number;
+            //         //luopan.set_transform(move_number);
+            //     }
+            //     //記錄目前座標數據
+            //     my_mouseX = mouse_now_X;
+
+            // }).onmouseover(function (e) {
+            //     var mouse_now_X = e.clientX;
+            //     //記錄目前座標數據
+            //     //my_mouseX = mouse_now_X;
+            // });
+
+        });
+
+        function Luopan(prop) {
+
+            this.src = 'http://res.cloudinary.com/cn27529/image/upload/v1523242966/luopan-02_slkj2y.png';
+            this.w_luopan = window.innerWidth - 20;
+            this.h_luopan = window.innerHeight - 20;
+            this.element_id = prop.element_id;
+            this.deg_number = 0;
+            //alert('new LuoPan');
+
+            this.set_transform = function (deg_number) {
+
+                var deg = 'rotate(' + this.deg_number + 'deg)';
+                document.querySelector('#' + this.element_id).style.transform = deg;
+                //this.element_obj.css('transform', deg);
+                this.deg_number = deg_number;
+            }
+
+            this.element = function () {
+                return document.querySelector('#' + this.element_id);
+            }
+
+            this.set_src = function () {
+
+                var luopan = document.querySelector('#' + this.element_id);
+                luopan.src = this.src;
+
+                this.w_luopan = window.innerWidth - 20;
+                this.h_luopan = window.innerHeight - 20;
+
+                console.log('w_luopan=', this.w_luopan);
+                console.log('h_luopan=', this.h_luopan);
+
+                if (this.h_luopan >= this.w_luopan) {
+                    this.h_luopan = this.w_luopan; //高要等於寛
+                }
+                if (this.w_luopan >= this.h_luopan) {
+                    this.w_luopan = this.h_luopan;
+                }
+                luopan.setAttribute('width', this.w_luopan + 'px'); //設定寛為營目同高
+                luopan.setAttribute('height', this.h_luopan + 'px'); //設定寛為營目同高
+
+            }
+
+            this.reset_luopan = function () {
+
+                this.w_luopan = window.innerWidth - 20;
+                this.h_luopan = window.innerHeight - 20;
+
+                console.log('w_luopan=', this.w_luopan);
+                console.log('h_luopan=', this.h_luopan);
+                //console.log('w_luopan center:' + this.w_luopan / 2);
+                //console.log('h_luopan center:' + this.h_luopan / 2);
+
+                //修正誤差
+                var my_left_gap = 8;
+                var my_top_gap = 0;
+
+                var my_style = 'position: absolute; z-index: -1; top: －1px; left: 0px; transform: rotate(0deg);';
+                var element_id = 'luopan';
+
+                //取得left要位移的位置
+                var my_left = this.w_luopan - this.h_luopan;
+                //console.log('my_left:' + my_left);
+
+                var my_top = 0;
+
+                if (this.h_luopan > this.w_luopan) {
+                    my_left = (this.w_luopan - 0) / 2; //修正誤差
+                    this.h_luopan = this.w_luopan; //高要等於寛
+                } else {
+                    my_left = (this.w_luopan - this.h_luopan) / 2; //修正誤差
+                    my_top = 9;
+                    my_left += my_left_gap;
+                    this.w_luopan = this.h_luopan;
+                }
+
+                my_style = 'position: absolute; z-index: -1; top: ' + my_top + 'px; left: ' + my_left +
+                    'px;';
+
+                //this.h_luopan = this.h_luopan - 50; //要比營目高小一點
+
+                var luopan = document.querySelector('#' + this.element_id);
+                luopan.setAttribute('style', my_style);
+                luopan.setAttribute('width', this.h_luopan + 'px'); //設定寛為營目同高
+
+            }
+
+        }
+
+        var luopan = new Luopan({
+            element_id: 'luopan'
+        });
+
+        var tenline = new TenLine({
+            element_id: 'tensvg',
+            w_id: 'wline',
+            h_id: 'hline',
+            color_code: '#bf00ff'
+        })
+
+        var auto_run = function () {
+
+            window.setInterval(function () {
+                //luopan.set_transform(0.125);
+                luopan.set_transform(0.060);
+            }, 60);
+
+        }
+
+        var stop_run = function () {
+
+            clearInterval(auto_run());
+            console.log('stop_run');
+
+        }
+    </script>
+
+</head>
+
+<body>
+    <svg class="tensvg" id="tensvg">
+        <!--橫線-->
+        <line id="wline" />
+        <!--直線-->
+        <line id="hline" />
+    </svg>
+    <div class="luopan">
+        <img id="luopan" alt="Luopan image">
+    </div>
+</body>
+
+</html>
