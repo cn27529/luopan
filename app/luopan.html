@@ -12,14 +12,14 @@
         $(function () {
 
             tenline.reset_tenline();
-            luopan.set_src();
-            //luopan.reset_luopan();
+            //luopan.set_src();
+            luopan.reset_luopan();
 
             //luopan.set_transform(0.035); //修正刻度起始位置
             window.onresize = function (event) {
                 tenline.reset_tenline();
-                luopan.set_src();
-                //luopan.reset_luopan();
+                //luopan.set_src();
+                luopan.reset_luopan();
             }
 
             //auto_run();
@@ -69,12 +69,12 @@
             this.deg_number = 0;
             //alert('new LuoPan');
 
-            this.set_transform = function (deg_number) {
+            this.set_transform = function (number) {
 
-                var deg = 'rotate(' + this.deg_number + 'deg)';
+                var deg = 'rotate(' + number + 'deg)';
                 document.querySelector('#' + this.element_id).style.transform = deg;
                 //this.element_obj.css('transform', deg);
-                this.deg_number = deg_number;
+                this.deg_number = number;
             }
 
             this.element = function () {
@@ -83,67 +83,75 @@
 
             this.set_src = function () {
 
-                var luopan = document.querySelector('#' + this.element_id);
-                luopan.src = this.src;
-
-                this.w_luopan = window.innerWidth - 20;
-                this.h_luopan = window.innerHeight - 20;
-
-                console.log('w_luopan=', this.w_luopan);
-                console.log('h_luopan=', this.h_luopan);
-
-                if (this.h_luopan >= this.w_luopan) {
-                    this.h_luopan = this.w_luopan; //高要等於寛
-                }
-                if (this.w_luopan >= this.h_luopan) {
-                    this.w_luopan = this.h_luopan;
-                }
-                luopan.setAttribute('width', this.w_luopan + 'px'); //設定寛為營目同高
-                luopan.setAttribute('height', this.h_luopan + 'px'); //設定寛為營目同高
+                //var luopan = document.querySelector('#' + this.element_id);
+                //luopan.src = this.src;
 
             }
 
             this.reset_luopan = function () {
 
-                this.w_luopan = window.innerWidth - 20;
-                this.h_luopan = window.innerHeight - 20;
+                var luopan = document.querySelector('#' + this.element_id);
+                luopan.src = this.src;
+                
+                //var qq = $('#' + this.element_id);
+                //alert(qq.html())
+                //$(luopan).show(1500);
+                //qq.hide()
 
-                console.log('w_luopan=', this.w_luopan);
-                console.log('h_luopan=', this.h_luopan);
-                //console.log('w_luopan center:' + this.w_luopan / 2);
-                //console.log('h_luopan center:' + this.h_luopan / 2);
 
-                //修正誤差
-                var my_left_gap = 8;
-                var my_top_gap = 0;
+                this.w_luopan = window.innerWidth - 30;
+                this.h_luopan = window.innerHeight - 30;
 
-                var my_style = 'position: absolute; z-index: -1; top: －1px; left: 0px; transform: rotate(0deg);';
-                var element_id = 'luopan';
+                var my_width = 0;
 
-                //取得left要位移的位置
-                var my_left = this.w_luopan - this.h_luopan;
-                //console.log('my_left:' + my_left);
-
-                var my_top = 0;
-
-                if (this.h_luopan > this.w_luopan) {
-                    my_left = (this.w_luopan - 0) / 2; //修正誤差
+                if (this.h_luopan >= this.w_luopan) {
                     this.h_luopan = this.w_luopan; //高要等於寛
-                } else {
-                    my_left = (this.w_luopan - this.h_luopan) / 2; //修正誤差
-                    my_top = 9;
-                    my_left += my_left_gap;
+                    my_width = this.w_luopan;
+                }
+                if (this.w_luopan >= this.h_luopan) {
                     this.w_luopan = this.h_luopan;
                 }
 
-                my_style = 'position: absolute; z-index: -1; top: ' + my_top + 'px; left: ' + my_left +
+                var my_left_gap = 0; //修正誤差
+                //取得left要位移的位置
+                var my_left = 0;
+                var my_top = 0;
+                var my_top_gap = 0
+                if (window.innerWidth >= window.innerHeight) {
+                    my_width = window.innerHeight-30;
+                    my_left = window.innerWidth - window.innerHeight;
+                    my_left_gap = 17;
+                    my_left = (my_left + my_left_gap) / 2;
+                    my_top = 8;
+                }
+
+                if (window.innerWidth <= window.innerHeight) {
+                    my_width = window.innerWidth-30;
+                    my_left = (window.innerWidth - this.w_luopan);
+                    my_left_gap = 12;
+                    my_left = (my_left - my_left_gap) / 2;
+                    my_top = (window.innerHeight - window.innerWidth);
+                    my_top_gap = 15;
+                    my_top = (my_top + my_top_gap ) /2;
+                }
+            
+                luopan.setAttribute('width', my_width + 'px'); //設定寛為營目同高
+                //console.log('my_left:' + my_left);
+
+                var my_style = 'border: 0px solid #000000; position: absolute; z-index: -999; top: ' + my_top +
+                    'px; left: ' + my_left +
                     'px;';
 
                 //this.h_luopan = this.h_luopan - 50; //要比營目高小一點
 
                 var luopan = document.querySelector('#' + this.element_id);
                 luopan.setAttribute('style', my_style);
-                luopan.setAttribute('width', this.h_luopan + 'px'); //設定寛為營目同高
+
+                console.log('window.innerWidth=', window.innerWidth);
+                console.log('window.innerHeight=', window.innerHeight);
+                console.log('luopan my_style=', my_style);
+                console.log('w_luopan=', this.w_luopan);
+                console.log('h_luopan=', this.h_luopan);
 
             }
 
