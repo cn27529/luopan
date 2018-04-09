@@ -34,10 +34,10 @@ function TenLine(prop) {
         this.w_svg = w_svg;
         this.h_svg = h_svg;
 
-        var my_style = 'stroke:#0080ff;stroke-width:1;'; //設藍色
+        var my_style = 'stroke:#0080ff;stroke-width:2;'; //設藍色
 
         if (typeof this.color_code !== 'undefined') {
-            my_style = 'stroke:' + this.color_code + ';stroke-width:1;';
+            my_style = 'stroke:' + this.color_code + ';stroke-width:2;';
         }
 
         var my_svg = document.querySelector('#' + this.element_id);
