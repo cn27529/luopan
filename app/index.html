@@ -12,13 +12,11 @@
         $(function() {
 
             tenline.reset_tenline();
-            //luopan.set_src();
             luopan.reset_luopan();
 
             //luopan.set_transform(0.035); //修正刻度起始位置
             window.onresize = function(event) {
                 tenline.reset_tenline();
-                //luopan.set_src();
                 luopan.reset_luopan();
             }
 
@@ -73,7 +71,7 @@
             w_id: 'wline',
             h_id: 'hline',
             color_code: colors[1],
-            stroke_width: 1
+            stroke_width: 2
         })
 
         var auto_run = function(prop) {
@@ -110,6 +108,8 @@
     <div class="luopan">
         <img id="luopan" alt="Luopan image">
     </div>
+
+
 </body>
 
 </html>

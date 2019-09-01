@@ -14,7 +14,7 @@ function TenLine(props) {
     this.h_id = props.h_id;
     this.color_code = props.color_code;
 
-    this.w_win = window.innerWidth; //目前瑩幕寛
+    this.w_win = window.innerWidth / 2; //目前瑩幕寛
     this.h_win = window.innerHeight; //目前瑩幕高
     this.stroke_width = props.stroke_width; //筆畫寛度
 
@@ -25,7 +25,7 @@ function TenLine(props) {
 
         // var w_win = window.innerWidth; //目前瑩幕寛 var h_win = window.innerHeight;
         // //目前瑩幕高 alert(h_win);
-        var w_svg = window.innerWidth - 15; //設寬
+        var w_svg = (window.innerWidth - 15) / 2; //設寬
         var h_svg = window.innerHeight - 15; //設高
         // alert(h_svg); w_svg = w_win - 0; h_svg = h_svg - 0; w_svg = window.innerWidth
         // h_svg = window.innerHeight
@@ -50,8 +50,11 @@ function TenLine(props) {
         var my_h = document.querySelector('#' + this.h_id);
 
         //設定svg寛高
-        my_svg.setAttribute('width', w_svg + 'px');
+        my_svg.setAttribute('width', 698 + 'px');
         my_svg.setAttribute('height', h_svg + 'px');
+
+        //margin-left: 282.5px;
+        //my_svg.setAttribute('margin-left', 'px');
 
         // my_svg.attr({     width: w_svg + 'px',     height: h_svg + 'px', });
 
@@ -107,13 +110,6 @@ function Luopan(props) {
         return document.querySelector('#' + this.element_id);
     };
 
-    this.set_src = function() {
-
-        //var luopan = document.querySelector('#' + this.element_id);
-        //luopan.src = this.src;
-
-    };
-
     this.reset_luopan = function() {
 
         var luopan = document.querySelector('#' + this.element_id);
@@ -123,7 +119,6 @@ function Luopan(props) {
         //alert(qq.html())
         //$(luopan).show(1500);
         //qq.hide()
-
 
         this.w_luopan = window.innerWidth - 30;
         this.h_luopan = window.innerHeight - 30;
