@@ -6,17 +6,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/luopan.css">
-    <script src="./scripts/luopan.js"></script>
+    <script src="./js/luopan.js"></script>
 
     <script>
-        $(function () {
+        $(function() {
 
             tenline.reset_tenline();
             //luopan.set_src();
             luopan.reset_luopan();
 
             //luopan.set_transform(0.035); //修正刻度起始位置
-            window.onresize = function (event) {
+            window.onresize = function(event) {
                 tenline.reset_tenline();
                 //luopan.set_src();
                 luopan.reset_luopan();
@@ -60,28 +60,26 @@
 
         });
 
-        var luopan_setting = {
-            element_id: 'luopan'
-        }
-        var luopan = new Luopan(luopan_setting);
+        var luopan = new Luopan({
+            element_id: 'luopan',
+            src: './images/luopan-201904.png'
+        });
 
         //紫紅藍黑綠
-        var tenline_colors = ['#730099', '#cc0000', '#0044cc', '#000000', '#006622']
+        var colors = ['#730099', '#cc0000', '#0044cc', '#000000', '#006622']
 
-        var tenline_setting = {
+        var tenline = new TenLine({
             element_id: 'tensvg',
             w_id: 'wline',
             h_id: 'hline',
-            color_code: tenline_colors[4],
-            stroke_width: 3
-        }
-        var tenline = new TenLine(tenline_setting)
+            color_code: colors[1],
+            stroke_width: 1
+        })
 
-
-        var auto_run = function (prop) {
+        var auto_run = function(prop) {
 
             //setTimeout('run(6)', 3000);
-            window.setInterval(function () {
+            window.setInterval(function() {
                 //auto_run(0.125);
                 luopan.set_transform(prop);
                 //console.log(luopan.deg_number)
@@ -89,19 +87,15 @@
 
         }
 
-        var stop_run = function () {
-
+        var stop_run = function() {
             clearInterval(auto_run());
             console.log('stop_run');
-
         }
 
-        var tranform_prop = {
-            number: 0.125,
-            move: 'right'
-        }
-        auto_run(tranform_prop);
-        
+        // auto_run({
+        //     number: 0.125,
+        //     move: 'right'
+        // });
     </script>
 
 </head>

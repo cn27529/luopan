@@ -5,23 +5,23 @@
 // goo(number) {     luopan.run(number); } function Luopan(obj_id) {     var
 // w_win = $(window).width();     var h_win = $(window).height();
 // this.luopan_id = obj_id;     this.deg_number = 0; } 畫十字線
-function TenLine(prop) {
+function TenLine(props) {
 
     // this.w_win = w_win; this.h_win = h_win;
 
-    this.element_id = prop.element_id;
-    this.w_id = prop.w_id;
-    this.h_id = prop.h_id;
-    this.color_code = prop.color_code;
+    this.element_id = props.element_id;
+    this.w_id = props.w_id;
+    this.h_id = props.h_id;
+    this.color_code = props.color_code;
 
     this.w_win = window.innerWidth; //目前瑩幕寛
     this.h_win = window.innerHeight; //目前瑩幕高
-    this.stroke_width = prop.stroke_width //筆畫寛度
+    this.stroke_width = props.stroke_width; //筆畫寛度
 
     this.w_svg = 0;
     this.h_svg = 0;
 
-    this.reset_tenline = function () {
+    this.reset_tenline = function() {
 
         // var w_win = window.innerWidth; //目前瑩幕寛 var h_win = window.innerHeight;
         // //目前瑩幕高 alert(h_win);
@@ -29,8 +29,8 @@ function TenLine(prop) {
         var h_svg = window.innerHeight - 15; //設高
         // alert(h_svg); w_svg = w_win - 0; h_svg = h_svg - 0; w_svg = window.innerWidth
         // h_svg = window.innerHeight
-        console.log('w_svg=', w_svg)
-        console.log('h_svg=', h_svg)
+        console.log('w_svg=', w_svg);
+        console.log('h_svg=', h_svg);
 
         this.w_svg = w_svg;
         this.h_svg = h_svg;
@@ -73,48 +73,48 @@ function TenLine(prop) {
         // my_h.attr({     style: my_style,     x1: "50%",     y1: "0",     x2: "50%",
         //   y2: "100%", });
 
-    }
+    };
 
-    this.element = function () {
+    this.element = function() {
         return document.querySelector('#' + element_id);
-    }
+    };
 
 }
 
 
-function Luopan(prop) {
+function Luopan(props) {
 
-    this.src = 'http://res.cloudinary.com/cn27529/image/upload/v1523242966/luopan-02_slkj2y.png';
+    this.src = props.src;
     this.w_luopan = window.innerWidth - 20;
     this.h_luopan = window.innerHeight - 20;
-    this.element_id = prop.element_id;
+    this.element_id = props.element_id;
     this.deg_number = 0;
     //alert('new LuoPan');
 
-    this.set_transform = function (prop) {
+    this.set_transform = function(props) {
 
-        if (prop.move === 'left') {
-            this.deg_number -= prop.number;
-        }else{
-            this.deg_number += prop.number;
+        if (props.move === 'left') {
+            this.deg_number -= props.number;
+        } else {
+            this.deg_number += props.number;
         }
         var deg = 'rotate(' + this.deg_number + 'deg)';
         document.querySelector('#' + this.element_id).style.transform = deg;
 
-    }
+    };
 
-    this.element = function () {
+    this.element = function() {
         return document.querySelector('#' + this.element_id);
-    }
+    };
 
-    this.set_src = function () {
+    this.set_src = function() {
 
         //var luopan = document.querySelector('#' + this.element_id);
         //luopan.src = this.src;
 
-    }
+    };
 
-    this.reset_luopan = function () {
+    this.reset_luopan = function() {
 
         var luopan = document.querySelector('#' + this.element_id);
         luopan.src = this.src;
@@ -170,7 +170,6 @@ function Luopan(prop) {
 
         //this.h_luopan = this.h_luopan - 50; //要比營目高小一點
 
-        var luopan = document.querySelector('#' + this.element_id);
         luopan.setAttribute('style', my_style);
 
         console.log('window.innerWidth=', window.innerWidth);
@@ -179,6 +178,6 @@ function Luopan(prop) {
         console.log('w_luopan=', this.w_luopan);
         console.log('h_luopan=', this.h_luopan);
 
-    }
+    };
 
 }
