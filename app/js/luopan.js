@@ -21,12 +21,12 @@ function TenLine(props) {
     this.w_svg = 0;
     this.h_svg = 0;
 
-    this.reset_tenline = function() {
+    this.reset_tenline = function () {
 
         // var w_win = window.innerWidth; //目前瑩幕寛 var h_win = window.innerHeight;
         // //目前瑩幕高 alert(h_win);
-        var w_svg = (window.innerWidth - 15) / 2; //設寬
-        var h_svg = window.innerHeight - 15; //設高
+        var w_svg = (window.innerWidth) / 2; //設寬
+        var h_svg = window.innerHeight; //設高
         // alert(h_svg); w_svg = w_win - 0; h_svg = h_svg - 0; w_svg = window.innerWidth
         // h_svg = window.innerHeight
         console.log('w_svg=', w_svg);
@@ -50,11 +50,14 @@ function TenLine(props) {
         var my_h = document.querySelector('#' + this.h_id);
 
         //設定svg寛高
-        my_svg.setAttribute('width', 698 + 'px');
+        my_svg.setAttribute('width', w_svg + 'px');
         my_svg.setAttribute('height', h_svg + 'px');
 
         //margin-left: 282.5px;
         //my_svg.setAttribute('margin-left', 'px');
+        var marginLeft = (window.innerWidth - 30) / 4;
+        console.log('marginLeft', marginLeft);
+        my_svg.style.marginLeft = marginLeft + "px";
 
         // my_svg.attr({     width: w_svg + 'px',     height: h_svg + 'px', });
 
@@ -78,7 +81,7 @@ function TenLine(props) {
 
     };
 
-    this.element = function() {
+    this.element = function () {
         return document.querySelector('#' + element_id);
     };
 
@@ -88,13 +91,13 @@ function TenLine(props) {
 function Luopan(props) {
 
     this.src = props.src;
-    this.w_luopan = window.innerWidth - 20;
-    this.h_luopan = window.innerHeight - 20;
+    this.w_luopan = 0;
+    this.h_luopan = 0;
     this.element_id = props.element_id;
     this.deg_number = 0;
     //alert('new LuoPan');
 
-    this.set_transform = function(props) {
+    this.set_transform = function (props) {
 
         if (props.move === 'left') {
             this.deg_number -= props.number;
@@ -106,11 +109,11 @@ function Luopan(props) {
 
     };
 
-    this.element = function() {
+    this.element = function () {
         return document.querySelector('#' + this.element_id);
     };
 
-    this.reset_luopan = function() {
+    this.reset_luopan = function () {
 
         var luopan = document.querySelector('#' + this.element_id);
         luopan.src = this.src;
@@ -120,8 +123,8 @@ function Luopan(props) {
         //$(luopan).show(1500);
         //qq.hide()
 
-        this.w_luopan = window.innerWidth - 30;
-        this.h_luopan = window.innerHeight - 30;
+        //this.w_luopan = window.innerWidth - 30;
+        //this.h_luopan = window.innerHeight - 30;
 
         var my_width = 0;
 
