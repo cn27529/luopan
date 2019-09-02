@@ -10,6 +10,31 @@
     <script src="./js/jQueryRotate.js"></script>
     <script src="./js/luopan.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- Tocas UI：CSS 與元件 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.css">
+    <!-- Tocas JS：模塊與 JavaScript 函式 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css" />
+</head>
+
+<body>
+    <div id="app">
+        <svg class="tensvg" id="tensvg">
+            <!--橫線-->
+            <line id="wline" />
+            <!--直線-->
+            <line id="hline" />
+        </svg>
+        <div class="luopan">
+            <img id="luopan" alt="Luopan image">
+        </div>
+    </div>
+    <!-- https://tocas-ui.com/modules/snackbar/ -->
+    <div class="ts snackbar">
+        <div class="content"></div>
+        <a class="action"></a>
+    </div>
+
 
     <script>
         $(function () {
@@ -24,6 +49,8 @@
             }
 
         });
+
+
 
         var luopan = new Luopan({
             element_id: 'luopan',
@@ -63,21 +90,70 @@
         // });
 
 
+        var handleErrors = function handleErrors(response) {
+            if (!response.ok) {
+                throw Error(response.statusText);
+            }
+            return response;
+        };
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            mounted: function () {
+
+                //this.dataItems.sort((a, b) => (a.apiURL > b.apiURL) ? 1 : -1) //es6
+                //this.dataItems.sort(function (a, b) { return a.apiName > b.apiName ? 1 : -1; });
+
+            },
+            created: function () {
+
+                this.showData();
+                //this.dataItems = ;
+
+            },
+            //el methods
+            methods: {
+
+                greet: function (event) {
+
+                    // `this` 在方法里指向当前 Vue 实例
+                    //alert('Hello ' + this.name + '!')
+                    // `event` 是原生 DOM 事件
+                    if (event) {
+
+                        //alert(event.target.tagName)
+
+                        if (1 == 1) {
+                            this.loading = true;
+                            this.showData();
+                        } else {
+
+                            ts('.snackbar').snackbar({
+                                content: this.apiDates,
+                                action: 'warning',
+                                actionEmphasis: 'warning',
+                            });
+
+                        }
+
+                    }
+
+                },
+
+                showData: function () {
+
+                    app.loading = false;
+
+                },
+
+            },
+
+        })
 
     </script>
-
-</head>
-
-<body>
-    <svg class="tensvg" id="tensvg">
-        <!--橫線-->
-        <line id="wline" />
-        <!--直線-->
-        <line id="hline" />
-    </svg>
-    <div class="luopan">
-        <img id="luopan" alt="Luopan image">
-    </div>
 
 
 </body>
