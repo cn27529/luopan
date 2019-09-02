@@ -26,7 +26,7 @@ function TenLine(props) {
         // var w_win = window.innerWidth; //目前瑩幕寛 var h_win = window.innerHeight;
         // //目前瑩幕高 alert(h_win);
         var w_svg = (window.innerWidth) / 2; //設寬
-        var h_svg = window.innerHeight; //設高
+        var h_svg = window.innerHeight - 15; //設高
         // alert(h_svg); w_svg = w_win - 0; h_svg = h_svg - 0; w_svg = window.innerWidth
         // h_svg = window.innerHeight
         console.log('w_svg=', w_svg);
@@ -53,9 +53,8 @@ function TenLine(props) {
         my_svg.setAttribute('width', w_svg + 'px');
         my_svg.setAttribute('height', h_svg + 'px');
 
-        //margin-left: 282.5px;
-        //my_svg.setAttribute('margin-left', 'px');
         var marginLeft = (window.innerWidth - 30) / 4;
+        //if (window.innerHeight > window.innerWidth) marginLeft = (window.innerHeight - 15) / 2;
         console.log('marginLeft', marginLeft);
         my_svg.style.marginLeft = marginLeft + "px";
 
@@ -95,7 +94,25 @@ function Luopan(props) {
     this.h_luopan = 0;
     this.element_id = props.element_id;
     this.deg_number = 0;
-    //alert('new LuoPan');
+    this.my_style = '';
+
+    this.find_transform = function (props) {
+        this.deg_number = props.number;
+        //歸零
+        var deg = 'rotate(0deg)';
+        var luopan = document.querySelector('#' + this.element_id);
+
+        if (props.number >= 360) {
+            $('#' + this.element_id).rotate(0)
+        }
+        else {
+            //goto
+            $('#' + this.element_id).rotate({
+                angle: 180,
+                animateTo: 180 - props.number
+            })
+        }
+    };
 
     this.set_transform = function (props) {
 
@@ -117,14 +134,6 @@ function Luopan(props) {
 
         var luopan = document.querySelector('#' + this.element_id);
         luopan.src = this.src;
-
-        //var qq = $('#' + this.element_id);
-        //alert(qq.html())
-        //$(luopan).show(1500);
-        //qq.hide()
-
-        //this.w_luopan = window.innerWidth - 30;
-        //this.h_luopan = window.innerHeight - 30;
 
         var my_width = 0;
 
@@ -162,13 +171,13 @@ function Luopan(props) {
         luopan.setAttribute('width', my_width + 'px'); //設定寛為營目同高
         //console.log('my_left:' + my_left);
 
-        var my_style = 'border: 0px solid #000000; position: absolute; z-index: -999; top: ' + my_top +
-            'px; left: ' + my_left +
-            'px;';
+        var my_style = 'border: 0px solid #000000; position: absolute; z-index: -999; top: ' + my_top + 'px; left: ' + my_left + 'px;';
 
         //this.h_luopan = this.h_luopan - 50; //要比營目高小一點
 
         luopan.setAttribute('style', my_style);
+
+        this.my_style = my_style;
 
         console.log('window.innerWidth=', window.innerWidth);
         console.log('window.innerHeight=', window.innerHeight);

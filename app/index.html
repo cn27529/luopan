@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/luopan.css">
     <script src="./js/luopan.js"></script>
+    <script src="./js/jquery-3.4.1.min.js"></script>
+    <script src="./js/jQueryRotate.js"></script>
 
     <script>
         $(function () {
@@ -86,7 +88,7 @@
         }
 
         var stop_run = function () {
-            clearInterval(auto_run());
+            clearInterval('auto_run');
             console.log('stop_run');
         }
 
@@ -94,6 +96,7 @@
         //     number: 0.125,
         //     move: 'right'
         // });
+
     </script>
 
 </head>
