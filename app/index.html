@@ -15,10 +15,21 @@
     <!-- Tocas JS：模塊與 JavaScript 函式 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 </head>
 
 <body>
     <div id="app">
+        <!-- 頂部固定 -->
+        <div class="ts top fixed inverted borderless large menu">
+            <div class="ts narrow container">
+                <div class="header item">
+                    <i class="home icon"></i>luopan running now</div>
+                <a href="#" class="right item" v-on:click="on_transform_rotate">
+                    <i class="compass icon"></i>Go to transform rotate
+                </a>
+            </div>
+        </div>
         <svg class="tensvg" id="tensvg">
             <!--橫線-->
             <line id="wline" />
@@ -100,7 +111,8 @@
         var app = new Vue({
             el: '#app',
             data: {
-
+                transform_rotate: 0,
+                loading: false,
             },
             mounted: function () {
 
@@ -116,6 +128,21 @@
             },
             //el methods
             methods: {
+
+                on_transform_rotate: function (event) {
+
+                    const { value: rotate } = await Swal.fire({
+                        title: 'Enter transform rotate',
+                        input: 'number',
+                        inputPlaceholder: 'Enter your transform rotate'
+                    })
+
+                    if (email) {
+                        Swal.fire(rotate)
+                    }
+
+
+                },
 
                 greet: function (event) {
 
@@ -145,7 +172,7 @@
 
                 showData: function () {
 
-                    app.loading = false;
+                    this.loading = false;
 
                 },
 
