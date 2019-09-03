@@ -21,7 +21,7 @@ function TenLine(props) {
     this.w_svg = 0;
     this.h_svg = 0;
 
-    this.reset_tenline = function () {
+    this.reset_tenline = function() {
 
         // var w_win = window.innerWidth; //目前瑩幕寛 var h_win = window.innerHeight;
         // //目前瑩幕高 alert(h_win);
@@ -80,7 +80,7 @@ function TenLine(props) {
 
     };
 
-    this.element = function () {
+    this.element = function() {
         return document.querySelector('#' + element_id);
     };
 
@@ -96,25 +96,28 @@ function Luopan(props) {
     this.deg_number = 0;
     this.my_style = '';
 
-    this.find_transform = function (props) {
+    this.find_transform = function(props) {
         this.deg_number = props.number;
         //歸零
         var deg = 'rotate(0deg)';
         var luopan = document.querySelector('#' + this.element_id);
 
         if (props.number >= 360) {
-            $('#' + this.element_id).rotate(0)
-        }
-        else {
+            $('#' + this.element_id).rotate({
+                duration: 5000,
+                angle: 0
+            });
+        } else {
             //goto
             $('#' + this.element_id).rotate({
+                duration: 5000,
                 angle: 180,
                 animateTo: 180 - props.number
-            })
+            });
         }
     };
 
-    this.set_transform = function (props) {
+    this.set_transform = function(props) {
 
         if (props.move === 'left') {
             this.deg_number -= props.number;
@@ -126,11 +129,11 @@ function Luopan(props) {
 
     };
 
-    this.element = function () {
+    this.element = function() {
         return document.querySelector('#' + this.element_id);
     };
 
-    this.reset_luopan = function () {
+    this.reset_luopan = function() {
 
         var luopan = document.querySelector('#' + this.element_id);
         luopan.src = this.src;

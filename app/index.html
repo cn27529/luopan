@@ -3,8 +3,7 @@
 
 <head>
     <title>Luopan</title>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"></script>
+    <script src="./js/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/luopan.css">
     <script src="./js/jQueryRotate.js"></script>
@@ -24,9 +23,12 @@
         <div class="ts top fixed inverted borderless large menu">
             <div class="ts narrow container">
                 <div class="header item">
-                    <i class="home icon"></i>luopan running now</div>
-                <a href="#" class="right item" v-on:click="on_transform_rotate">
-                    <i class="compass icon"></i>Go to transform rotate
+                    <i class="home icon"></i>Luopan</div>
+                <a href="#" class="right item" v-on:click="on_rotate">
+                    <i class="compass icon"></i>Enter rotate
+                </a>
+                <a href="#" class="item" v-on:click="on_reset">
+                    <i class="compass icon"></i>Reset rotate
                 </a>
             </div>
         </div>
@@ -48,13 +50,13 @@
 
 
     <script>
-        $(function () {
+        $(function() {
 
             tenline.reset_tenline();
             luopan.reset_luopan();
 
             //luopan.set_transform(0.035); //修正刻度起始位置
-            window.onresize = function (event) {
+            window.onresize = function(event) {
                 tenline.reset_tenline();
                 luopan.reset_luopan();
             }
@@ -79,10 +81,10 @@
             stroke_width: 2
         })
 
-        var auto_run = function (prop) {
+        var auto_run = function(prop) {
 
             //setTimeout('run(6)', 3000);
-            window.setInterval(function () {
+            window.setInterval(function() {
                 //auto_run(0.125);
                 luopan.set_transform(prop);
                 //console.log(luopan.deg_number)
@@ -90,7 +92,7 @@
 
         }
 
-        var stop_run = function () {
+        var stop_run = function() {
             clearInterval('auto_run');
             console.log('stop_run');
         }
@@ -114,13 +116,13 @@
                 transform_rotate: 0,
                 loading: false,
             },
-            mounted: function () {
+            mounted: function() {
 
                 //this.dataItems.sort((a, b) => (a.apiURL > b.apiURL) ? 1 : -1) //es6
                 //this.dataItems.sort(function (a, b) { return a.apiName > b.apiName ? 1 : -1; });
 
             },
-            created: function () {
+            created: function() {
 
                 this.showData();
                 //this.dataItems = ;
@@ -129,22 +131,37 @@
             //el methods
             methods: {
 
-                on_transform_rotate: function (event) {
+                on_rotate: function(event) {
 
-                    const { value: rotate } = await Swal.fire({
-                        title: 'Enter transform rotate',
+                    Swal.fire({
+                        title: 'Enter rotate',
                         input: 'number',
-                        inputPlaceholder: 'Enter your transform rotate'
+                        inputPlaceholder: 'Enter rotate'
+                    }).then(function(data) {
+
+                        var rotate = data.value;
+                        //console.log(rotate);
+
+                        setTimeout(function() {
+                            luopan.find_transform({
+                                number: rotate
+                            });
+                        })
+
+
                     })
-
-                    if (email) {
-                        Swal.fire(rotate)
-                    }
-
 
                 },
 
-                greet: function (event) {
+                on_reset: function(event) {
+
+                    luopan.find_transform({
+                        number: 180
+                    });
+
+                },
+
+                greet: function(event) {
 
                     // `this` 在方法里指向当前 Vue 实例
                     //alert('Hello ' + this.name + '!')
@@ -170,7 +187,7 @@
 
                 },
 
-                showData: function () {
+                showData: function() {
 
                     this.loading = false;
 
@@ -179,7 +196,6 @@
             },
 
         })
-
     </script>
 
 
