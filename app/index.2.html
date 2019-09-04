@@ -22,32 +22,19 @@
 
 <body>
     <div id="app">
-
-        <!--buttonsbar-->
-        <div class="ts active top right snackbar">
-            <div class="content">
-                <i class="setting big icon"></i>
-                <button class="ts icon button" v-on:click="on_rotate">
-                    <i class="compass icon"></i>
-                    Rotate
-                </button>
-                <button class="ts icon button" v-on:click="on_reset">
-                    <i class="undo icon"></i>
-                    Undo
-                </button>
-                <button class="ts icon button" v-on:click="on_ten">
-                    <i class="plus icon"></i>
-                    Ten Line
-                </button>
-
+        <!-- 頂部固定 -->
+        <div class="ts top fixed inverted borderless large menu">
+            <div class="ts narrow container">
+                <div class="header item">
+                    <i class="home icon"></i>Luopan</div>
+                <a href="#" class="right item" v-on:click="on_rotate">
+                    <i class="compass icon"></i>Rotate
+                </a>
+                <a href="#" class="item" v-on:click="on_reset">
+                    <i class="compass icon"></i>Reset
+                </a>
             </div>
         </div>
-
-
-        <div class="ts container">
-
-        </div>
-
         <svg class="tensvg" id="tensvg">
             <!--橫線-->
             <line id="wline" />
@@ -57,16 +44,12 @@
         <div class="luopan">
             <img id="luopan" alt="Luopan image">
         </div>
-
-        <!-- https://tocas-ui.com/modules/snackbar/ -->
-        <div class="ts snackbar">
-            <div class="content"></div>
-            <a class="action"></a>
-        </div>
-
     </div>
-
-
+    <!-- https://tocas-ui.com/modules/snackbar/ -->
+    <div class="ts snackbar">
+        <div class="content"></div>
+        <a class="action"></a>
+    </div>
 
 
     <script>
@@ -166,7 +149,7 @@
                             luopan.find_transform({
                                 number: rotate
                             });
-                        }, 100)
+                        }, 1000)
 
 
                     })
@@ -179,13 +162,7 @@
                         luopan.find_transform({
                             number: 180
                         });
-                    }, 100)
-
-                },
-
-                on_ten: function (event) {
-
-
+                    }, 1000)
 
                 },
 
