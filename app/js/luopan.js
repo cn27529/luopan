@@ -117,13 +117,13 @@ function Luopan(props) {
 
         if (props.number >= 360) {
             $("#" + this.element_id).rotate({
-                duration: 2000,
+                duration: 4500,
                 angle: 0
             });
         } else {
             //goto
             $("#" + this.element_id).rotate({
-                duration: 2000,
+                duration: 4500,
                 angle: 180,
                 animateTo: 180 - props.number
             });
