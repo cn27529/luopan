@@ -71,10 +71,12 @@ gulp.task("scss", function() {
 });
 
 gulp.task("css", function() {
-    return gulp
+    return (
+        gulp
         .src(app.css)
-        .pipe(cssminify()) //壓縮CSS
-        .pipe(gulp.dest(app.dist + "/css"));
+        //.pipe(cssminify()) //壓縮CSS
+        .pipe(gulp.dest(app.dist + "/css"))
+    );
 });
 
 gulp.task("js", function(cb) {
@@ -87,12 +89,6 @@ gulp.task("js", function(cb) {
         cb
     );
 });
-
-// gulp.task('clean-css', function () {     var clean_path = app.dist + '/css';
-//  return gulp         .src(clean_path, {read: false}) .pipe(clean()); });
-// gulp.task('clean-scripts', function () {     var clean_path = app.dist +
-// '/scripts';     return gulp         .src(clean_path, {read: false})
-// .pipe(clean()); });
 
 gulp.task("build", ["clean"], function() {
     console.log("building....");
