@@ -23,24 +23,47 @@
 <body>
     <div class="ts container" id="app">
         <!--buttonsbar-->
-        <div class="ts active top right snackbar">
-            <div class="content">
-                <i class="setting big icon"></i>
-                <button class="ts icon button" v-on:click="on_rotate">
-                    <i class="compass icon"></i>
-                    Rotate
-                </button>
-                <button class="ts icon button" v-on:click="on_reset">
-                    <i class="undo icon"></i>
-                    Undo
-                </button>
-                <button class="ts icon button" v-on:click="on_ten">
-                    <i class="plus icon"></i>
-                    Ten Line
-                </button>
+        <div class="large screen only">
+            <div class="ts active bottom right snackbar">
+                <div class="content">
+                    <i class="setting big icon"></i>
+                    <button class="ts big icon button" v-on:click="on_rotate">
+                        <i class="compass icon"></i>
+                        迴轉羅盤
+                    </button>
+                    <button class="ts big icon button" v-on:click="on_reset">
+                        <i class="undo icon"></i>
+                        回正位
+                    </button>
+                    <button class="ts big icon button" v-on:click="on_ten">
+                        <i class="plus icon"></i>
+                        十字線
+                    </button>
 
+                </div>
             </div>
         </div>
+        <div class="mobile or tablet only">
+            <div class="ts active bottom right snackbar">
+                <div class="content">
+                    <i class="setting big icon"></i>
+                    <button class="ts icon button" v-on:click="on_rotate">
+                        <i class="compass icon"></i>
+                        迴轉羅盤
+                    </button>
+                    <button class="ts icon button" v-on:click="on_reset">
+                        <i class="undo icon"></i>
+                        回正位
+                    </button>
+                    <button class="ts icon button" v-on:click="on_ten">
+                        <i class="plus icon"></i>
+                        十字線
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
 
     </div>
 
@@ -61,14 +84,14 @@
     </div>
 
     <script>
-        $(function () {
+        $(function() {
 
             tenline.reset_tenline();
             luopan.reset_luopan();
 
             //luopan.set_transform(0.035); //修正刻度起始位置
-            window.onresize = function (event) {
-                tenline.reset_tenline();
+            window.onresize = function(event) {
+                //tenline.reset_tenline();
                 luopan.reset_luopan();
             }
 
@@ -92,10 +115,10 @@
             stroke_width: 2
         })
 
-        var auto_run = function (prop) {
+        var auto_run = function(prop) {
 
             //setTimeout('run(6)', 3000);
-            window.setInterval(function () {
+            window.setInterval(function() {
                 //auto_run(0.125);
                 luopan.set_transform(prop);
                 //console.log(luopan.deg_number)
@@ -103,7 +126,7 @@
 
         }
 
-        var stop_run = function () {
+        var stop_run = function() {
             clearInterval('auto_run');
             console.log('stop_run');
         }
@@ -127,13 +150,13 @@
                 transform_rotate: 0,
                 loading: false,
             },
-            mounted: function () {
+            mounted: function() {
 
                 //this.dataItems.sort((a, b) => (a.apiURL > b.apiURL) ? 1 : -1) //es6
                 //this.dataItems.sort(function (a, b) { return a.apiName > b.apiName ? 1 : -1; });
 
             },
-            created: function () {
+            created: function() {
 
                 this.showData();
                 //this.dataItems = ;
@@ -142,31 +165,30 @@
             //el methods
             methods: {
 
-                on_rotate: function (event) {
+                on_rotate: function(event) {
 
                     Swal.fire({
                         title: 'Enter rotate',
                         input: 'number',
                         inputPlaceholder: 'Enter rotate'
-                    }).then(function (data) {
+                    }).then(function(data) {
 
                         var rotate = data.value;
                         //console.log(rotate);
-
-                        setTimeout(function () {
+                        setTimeout(function() {
                             luopan.find_transform({
                                 number: rotate
                             });
-                        }, 100)
+                        }, 1000)
 
 
                     })
 
                 },
 
-                on_reset: function (event) {
+                on_reset: function(event) {
 
-                    setTimeout(function () {
+                    setTimeout(function() {
                         luopan.find_transform({
                             number: 180
                         });
@@ -174,13 +196,13 @@
 
                 },
 
-                on_ten: function (event) {
+                on_ten: function(event) {
 
 
 
                 },
 
-                greet: function (event) {
+                greet: function(event) {
 
                     // `this` 在方法里指向当前 Vue 实例
                     //alert('Hello ' + this.name + '!')
@@ -206,7 +228,7 @@
 
                 },
 
-                showData: function () {
+                showData: function() {
 
                     this.loading = false;
 
