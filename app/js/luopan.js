@@ -117,13 +117,13 @@ function Luopan(props) {
 
         if (props.number >= 360) {
             $("#" + this.element_id).rotate({
-                duration: 5500,
+                duration: 2000,
                 angle: 0
             });
         } else {
             //goto
             $("#" + this.element_id).rotate({
-                duration: 5500,
+                duration: 2000,
                 angle: 180,
                 animateTo: 180 - props.number
             });
@@ -136,7 +136,8 @@ function Luopan(props) {
         } else {
             this.deg_number += props.number;
         }
-        var deg = "rotate(" + this.deg_number + "deg)";
+        var deg = "rotate(" + 180 + "deg)";
+        deg = "rotate(" + this.deg_number + "deg)";
         document.querySelector("#" + this.element_id).style.transform = deg;
     };
 

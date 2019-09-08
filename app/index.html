@@ -28,7 +28,7 @@
                 <div class="content">
                     <button class="ts big icon button" v-on:click="on_rotate">
                         <i class="compass icon"></i>
-                        迴轉羅盤
+                        轉動羅盤
                     </button>
                     <button class="ts big icon button" v-on:click="on_reset">
                         <i class="undo icon"></i>
@@ -47,7 +47,7 @@
                 <div class="content">
                     <button class="ts small icon button" v-on:click="on_rotate">
                         <i class="compass icon"></i>
-                        迴轉羅盤
+                        轉動羅盤
                     </button>
                     <button class="ts small icon button" v-on:click="on_reset">
                         <i class="undo icon"></i>
@@ -165,18 +165,12 @@
 
                 on_rotate: function(event) {
 
-                    if (window.rotate !== undefined) {
-                        tenline.reset_tenline();
-                        luopan.set_transform({
-                            number: window.rotate
-                        });
-                    }
-
+                    console.log('window.rotate', window.rotate);
 
                     Swal.fire({
-                        title: '輸入數字0~359, 迴轉羅盤',
+                        title: '輸入數字0~359, 轉動羅盤',
                         input: 'number',
-                        inputPlaceholder: '0~359'
+                        inputPlaceholder: '270'
                     }).then(function(data) {
 
                         var rotate = data.value;
@@ -205,7 +199,8 @@
                         luopan.find_transform({
                             number: 180
                         });
-                    }, 100)
+                    }, 1000)
+                    window.rotate = 180;
 
                 },
 
