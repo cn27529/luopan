@@ -1,93 +1,91 @@
-var gulp = require('gulp');
-var cssminify = require('gulp-minify-css');
-var uglify = require('gulp-uglify');
-var pump = require('pump');
-var clean = require('gulp-clean');
-var sass = require('gulp-sass');
-var connect = require('gulp-connect');
+var gulp = require("gulp");
+var cssminify = require("gulp-minify-css");
+var uglify = require("gulp-uglify");
+var pump = require("pump");
+var clean = require("gulp-clean");
+var sass = require("gulp-sass");
+var connect = require("gulp-connect");
 
-var webserver = require('gulp-webserver');
-var browsersync = require('browser-sync').create();
-var imagemin = require('gulp-imagemin');
+var webserver = require("gulp-webserver");
+var browsersync = require("browser-sync").create();
+var imagemin = require("gulp-imagemin");
 
-var app_name = 'app';
+var app_name = "app";
 
 var app = {
     src: app_name,
-    css: app_name + '/css/*.css',
-    js: app_name + '/js/**/*.js',
-    dist: 'dist',
-    scss: app_name + '/scss/**/*.scss',
-    html: app_name + '/*.html',
-    images: app_name + '/images/*.*'
+    css: app_name + "/css/*.css",
+    js: app_name + "/js/**/*.js",
+    dist: "dist",
+    scss: app_name + "/scss/**/*.scss",
+    html: app_name + "/*.html",
+    images: app_name + "/images/*.*"
 };
 
 // 監看異動的task
-gulp.task('watch', function () {
-
-    gulp.watch(app.css, ['css']); //有異動就執行task
-    gulp.watch(app.js, ['js']);
-    gulp.watch(app.images, ['images']);
-    gulp.watch(app.html, ['html']).on('change', browsersync.reload);
-
+gulp.task("watch", function() {
+    gulp.watch(app.css, ["css"]); //有異動就執行task
+    gulp.watch(app.js, ["js"]);
+    gulp.watch(app.images, ["images"]);
+    gulp.watch(app.html, ["html"]).on("change", browsersync.reload);
 });
 
-gulp.task('run', ['build'], function () {
-    console.log('runing....');
-    gulp.start('server');
+gulp.task("run", ["build"], function() {
+    console.log("runing....");
+    gulp.start("server");
 });
 
-gulp.task('server', ['watch'], function () {
-
-    gulp
-        .src('./dist')
-        .pipe(webserver({
-            fallback: 'index.html',
+gulp.task("server", ["watch"], function() {
+    gulp.src("./dist").pipe(
+        webserver({
+            fallback: "index.html",
             livereload: true,
             directoryListing: {
                 enable: true,
-                path: 'dist'
+                path: "dist"
             },
             open: true,
             port: 8080
-        }));
-
+        })
+    );
 });
 
-gulp.task('images', function () {
+gulp.task("images", function() {
     gulp
         .src(app.images)
         //.pipe(imagemin()) //壓縮圖片
-        .pipe(gulp.dest(app.dist + '/images'));
+        .pipe(gulp.dest(app.dist + "/images"));
     //.pipe(connect.reload());
 });
 
-gulp.task('html', function () {
+gulp.task("html", function() {
+    gulp.src(app.html).pipe(gulp.dest(app.dist));
+    //.pipe(connect.reload());
+});
+
+gulp.task("scss", function() {
     gulp
-        .src(app.html)
-        .pipe(gulp.dest(app.dist))
-    //.pipe(connect.reload());
-});
-
-gulp.task('scss', function () {
-    gulp.src(app.scss) // 指定要處理的 Scss 檔案目錄
+        .src(app.scss) // 指定要處理的 Scss 檔案目錄
         .pipe(sass()) // 編譯 Scss
         .pipe(gulp.dest(app.css)); // 指定編譯後的 css 檔案目錄
 });
 
-gulp.task('css', function () {
+gulp.task("css", function() {
     return gulp
         .src(app.css)
-        //.pipe(cssminify()) //壓縮CSS
-        .pipe(gulp.dest(app.dist + '/css'));
+        .pipe(cssminify()) //壓縮CSS
+        .pipe(gulp.dest(app.dist + "/css"));
 });
 
-gulp.task('js', function (cb) {
-    pump([
-        gulp.src(app.js),
-        //uglify(), //壓縮JS
-        gulp.dest(app.dist + '/js')
-    ], cb);
+gulp.task("js", function(cb) {
+    pump(
+        [
+            gulp.src(app.js),
+            uglify(), //壓縮JS
+            gulp.dest(app.dist + "/js")
+        ],
+        cb
+    );
 });
 
 // gulp.task('clean-css', function () {     var clean_path = app.dist + '/css';
@@ -96,26 +94,26 @@ gulp.task('js', function (cb) {
 // '/scripts';     return gulp         .src(clean_path, {read: false})
 // .pipe(clean()); });
 
-gulp.task('build', ['clean'], function () {
-    console.log('building....');
-    gulp.start('dist');
+gulp.task("build", ["clean"], function() {
+    console.log("building....");
+    gulp.start("dist");
 });
 
-gulp.task('dist', ['css', 'js', 'html', 'images'], function () {
-    console.log('created dist....');
+gulp.task("dist", ["css", "js", "html", "images"], function() {
+    console.log("created dist....");
 });
 
 //清除dist資料
-gulp.task('clean', function () {
-
-    var js = app.dist + '/js';
-    var css = app.dist + '/css';
-    var html = app.dist + '/*.html';
-    var images = app.dist + '/images';
-    return gulp.src([js, css, html, images], {
-        read: true
-    }).pipe(clean());
+gulp.task("clean", function() {
+    var js = app.dist + "/js";
+    var css = app.dist + "/css";
+    var html = app.dist + "/*.html";
+    var images = app.dist + "/images";
+    return gulp
+        .src([js, css, html, images], {
+            read: true
+        })
+        .pipe(clean());
 
     //console.log('cleaned....');
-
 });
