@@ -20,22 +20,27 @@ function TenLine(props) {
     this.w_svg = 0;
     this.h_svg = 0;
 
+    this.show_line = function(value) {
+        var tl = document.getElementById(this.element_id);
+
+        if (value) tl.setAttribute("style", "display: block;");
+        else tl.setAttribute("style", "display: none;");
+
+        this.reset_tenline();
+    };
+
     this.reset_tenline = function() {
-        this.w_win = window.innerWidth / 2; //目前瑩幕寛
+        this.w_win = window.innerWidth; //目前瑩幕寛
         this.h_win = window.innerHeight; //目前瑩幕高
         console.log("reset_tenline");
         console.log("this.w_win=", this.w_win);
         console.log("this.h_win=", this.h_win);
 
-        // //目前瑩幕高 alert(h_win);
-        var w_svg = this.w_win; //設寬
-        var h_svg = this.h_win; //設高
+        this.w_svg = this.w_win; //設寬
+        this.h_svg = this.h_win; //設高
 
-        console.log("w_svg=", w_svg);
-        console.log("h_svg=", h_svg);
-
-        this.w_svg = w_svg;
-        this.h_svg = h_svg;
+        console.log("w_svg=", this.w_svg);
+        console.log("h_svg=", this.h_svg);
 
         var my_style = "stroke:#0080ff;stroke-width:1;"; //設藍色
 
@@ -50,21 +55,25 @@ function TenLine(props) {
         var my_svg = document.querySelector("#" + this.element_id);
         var my_w = document.querySelector("#" + this.w_id);
         var my_h = document.querySelector("#" + this.h_id);
-
+        var my_left = 0;
         //設定svg寛高
-        if (w_svg <= h_svg) {
-            my_svg.setAttribute("width", h_svg + "px");
-            my_svg.setAttribute("height", h_svg + "px");
+        if (this.w_win >= this.h_win) {
+            console.log("寛>高");
+            my_svg.setAttribute("width", this.h_win + "px");
+            my_svg.setAttribute("height", this.h_win + "px");
+            my_left = this.w_win - this.h_win;
         } else {
-            my_svg.setAttribute("width", w_svg + "px");
-            my_svg.setAttribute("height", w_svg + "px");
+            console.log("高>寛");
+            my_svg.setAttribute("width", this.w_win + "px");
+            my_svg.setAttribute("height", this.w_win + "px");
+            my_left = 0;
         }
-
-        var marginLeft = (this.h_win - 0) / 4;
-        console.log("marginLeft", marginLeft);
-        //my_svg.style.marginLeft = marginLeft + 'px';
+        console.log("marginLeft", my_left);
+        my_svg.style.marginLeft = my_left / 2 + "px";
 
         // my_svg.attr({     width: w_svg + 'px',     height: h_svg + 'px', });
+
+        //console.log("my_style", my_style);
 
         my_w.setAttribute("style", my_style);
         my_w.setAttribute("x1", "0");
