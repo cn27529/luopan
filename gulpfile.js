@@ -23,19 +23,19 @@ var app = {
 };
 
 // 監看異動的task
-gulp.task("watch", function() {
+gulp.task("watch", function () {
     gulp.watch(app.css, ["css"]); //有異動就執行task
     gulp.watch(app.js, ["js"]);
     gulp.watch(app.images, ["images"]);
     gulp.watch(app.html, ["html"]).on("change", browsersync.reload);
 });
 
-gulp.task("run", ["build"], function() {
+gulp.task("run", ["build"], function () {
     console.log("runing....");
     gulp.start("server");
 });
 
-gulp.task("server", ["watch"], function() {
+gulp.task("server", ["watch"], function () {
     gulp.src("./dist").pipe(
         webserver({
             fallback: "index.html",
@@ -50,7 +50,7 @@ gulp.task("server", ["watch"], function() {
     );
 });
 
-gulp.task("images", function() {
+gulp.task("images", function () {
     gulp
         .src(app.images)
         //.pipe(imagemin()) //壓縮圖片
@@ -58,28 +58,28 @@ gulp.task("images", function() {
     //.pipe(connect.reload());
 });
 
-gulp.task("html", function() {
+gulp.task("html", function () {
     gulp.src(app.html).pipe(gulp.dest(app.dist));
     //.pipe(connect.reload());
 });
 
-gulp.task("scss", function() {
+gulp.task("scss", function () {
     gulp
         .src(app.scss) // 指定要處理的 Scss 檔案目錄
         .pipe(sass()) // 編譯 Scss
         .pipe(gulp.dest(app.css)); // 指定編譯後的 css 檔案目錄
 });
 
-gulp.task("css", function() {
+gulp.task("css", function () {
     return (
         gulp
-        .src(app.css)
-        //.pipe(cssminify()) //壓縮CSS
-        .pipe(gulp.dest(app.dist + "/css"))
+            .src(app.css)
+            .pipe(cssminify()) //壓縮CSS
+            .pipe(gulp.dest(app.dist + "/css"))
     );
 });
 
-gulp.task("js", function(cb) {
+gulp.task("js", function (cb) {
     pump(
         [
             gulp.src(app.js),
@@ -90,17 +90,17 @@ gulp.task("js", function(cb) {
     );
 });
 
-gulp.task("build", ["clean"], function() {
+gulp.task("build", ["clean"], function () {
     console.log("building....");
     gulp.start("dist");
 });
 
-gulp.task("dist", ["css", "js", "html", "images"], function() {
+gulp.task("dist", ["css", "js", "html", "images"], function () {
     console.log("created dist....");
 });
 
 //清除dist資料
-gulp.task("clean", function() {
+gulp.task("clean", function () {
     var js = app.dist + "/js";
     var css = app.dist + "/css";
     var html = app.dist + "/*.html";
