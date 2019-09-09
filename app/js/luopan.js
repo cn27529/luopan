@@ -20,7 +20,7 @@ function TenLine(props) {
     this.w_svg = 0;
     this.h_svg = 0;
 
-    this.show_line = function(value) {
+    this.show_line = function (value) {
         var tl = document.getElementById(this.element_id);
 
         if (value) tl.setAttribute("style", "display: block;");
@@ -29,7 +29,7 @@ function TenLine(props) {
         this.reset_tenline();
     };
 
-    this.reset_tenline = function() {
+    this.reset_tenline = function () {
         this.w_win = window.innerWidth; //目前瑩幕寛
         this.h_win = window.innerHeight; //目前瑩幕高
         console.log("reset_tenline");
@@ -94,7 +94,7 @@ function TenLine(props) {
         //   y2: '100%', });
     };
 
-    this.element = function() {
+    this.element = function () {
         return document.querySelector("#" + element_id);
     };
 }
@@ -109,7 +109,7 @@ function Luopan(props) {
     this.h_win = window.innerHeight;
     this.my_width = 0;
 
-    this.find_transform = function(props) {
+    this.find_transform = function (props) {
         this.deg_number = props.number;
         //歸零
         var deg = "rotate(0deg)";
@@ -118,19 +118,27 @@ function Luopan(props) {
         if (props.number >= 360) {
             $("#" + this.element_id).rotate({
                 duration: 4500,
-                angle: 0
+                angle: 180,
+                animateTo: 360
             });
         } else {
             //goto
+            // $("#" + this.element_id).rotate({
+            //     duration: 4500,
+            //     angle: 180,
+            //     animateTo: 180 - props.number
+            // });
+
             $("#" + this.element_id).rotate({
                 duration: 4500,
                 angle: 180,
-                animateTo: 180 - props.number
+                animateTo: 360 - props.number
             });
+
         }
     };
 
-    this.set_transform = function(props) {
+    this.set_transform = function (props) {
         if (props.move === "left") {
             this.deg_number -= props.number;
         } else {
@@ -141,11 +149,11 @@ function Luopan(props) {
         document.querySelector("#" + this.element_id).style.transform = deg;
     };
 
-    this.element = function() {
+    this.element = function () {
         return document.querySelector("#" + this.element_id);
     };
 
-    this.reset_luopan = function() {
+    this.reset_luopan = function () {
         this.w_win = window.innerWidth;
         this.h_win = window.innerHeight;
         console.log("reset_luopan");
