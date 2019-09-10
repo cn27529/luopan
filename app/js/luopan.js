@@ -8,7 +8,7 @@
 function TenLine(props) {
     // this.w_win = w_win; this.h_win = h_win;
 
-    this.element_id = props.element_id;
+    this.ele_id = props.ele_id;
     this.w_id = props.w_id;
     this.h_id = props.h_id;
     this.color_code = props.color_code;
@@ -21,7 +21,7 @@ function TenLine(props) {
     this.h_svg = 0;
 
     this.show_line = function (value) {
-        var tl = document.getElementById(this.element_id);
+        var tl = document.getElementById(this.ele_id);
 
         if (value) tl.setAttribute("style", "display: block;");
         else tl.setAttribute("style", "display: none;");
@@ -52,7 +52,7 @@ function TenLine(props) {
             my_style += "stroke-width:" + this.stroke_width + ";";
         }
 
-        var my_svg = document.querySelector("#" + this.element_id);
+        var my_svg = document.querySelector("#" + this.ele_id);
         var my_w = document.querySelector("#" + this.w_id);
         var my_h = document.querySelector("#" + this.h_id);
         var my_left = 0;
@@ -95,14 +95,14 @@ function TenLine(props) {
     };
 
     this.element = function () {
-        return document.querySelector("#" + element_id);
+        return document.querySelector("#" + ele_id);
     };
 }
 
 function Luopan(props) {
-    this.src = props.src;
 
-    this.element_id = props.element_id;
+    this.src = props.src;
+    this.ele_id = props.ele_id;
     this.deg_number = 0;
     this.my_style = "";
     this.w_win = window.innerWidth;
@@ -113,29 +113,31 @@ function Luopan(props) {
         this.deg_number = props.number;
         //歸零
         var deg = "rotate(0deg)";
-        var luopan = document.querySelector("#" + this.element_id);
+        var luopan = document.querySelector("#" + this.ele_id);
 
         if (props.number >= 360) {
-            $("#" + this.element_id).rotate({
+            $("#" + this.ele_id).rotate({
                 duration: 4500,
                 angle: 180,
                 animateTo: 360
             });
         } else {
             //goto
-            // $("#" + this.element_id).rotate({
+            // $("#" + this.ele_id).rotate({
             //     duration: 4500,
             //     angle: 180,
             //     animateTo: 180 - props.number
             // });
 
-            $("#" + this.element_id).rotate({
+            $("#" + this.ele_id).rotate({
                 duration: 4500,
                 angle: 180,
                 animateTo: 360 - props.number
             });
 
         }
+
+        return luopan;
     };
 
     this.set_transform = function (props) {
@@ -146,21 +148,37 @@ function Luopan(props) {
         }
         var deg = "rotate(" + 180 + "deg)";
         deg = "rotate(" + this.deg_number + "deg)";
-        document.querySelector("#" + this.element_id).style.transform = deg;
+        document.querySelector("#" + this.ele_id).style.transform = deg;
     };
 
-    this.element = function () {
-        return document.querySelector("#" + this.element_id);
+    this.img = function () {
+        var luopan = document.querySelector("#" + this.ele_id);
+        luopan.src = this.src;
+        return luopan;
     };
 
-    this.reset_luopan = function () {
+    this.reset_luopan = function (cb) {
+
         this.w_win = window.innerWidth;
         this.h_win = window.innerHeight;
         console.log("reset_luopan");
         console.log("this.w_win=", this.w_win);
         console.log("this.h_win=", this.h_win);
 
-        var luopan = document.querySelector("#" + this.element_id);
+        var luopan = document.querySelector("#" + this.ele_id);
+
+        var isFun = typeof cb === 'function';
+        if (typeof cb === 'function') {
+            luopan.onload = function () {
+                // the image is ready
+                cb('the image is ready');
+            };
+            luopan.onerror = function () {
+                // the image has failed
+                cb('the image has failed');
+            };
+        }
+
         luopan.src = this.src;
 
         var my_left_gap = 0; //修正誤差
@@ -208,5 +226,7 @@ function Luopan(props) {
         this.my_style = my_style;
 
         console.log("luopan my_style=", my_style);
+
+        return luopan;
     };
 }

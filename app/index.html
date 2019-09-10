@@ -85,52 +85,48 @@
     </div>
 
     <script>
-        $(function () {
 
-            ui_reset(null);
-
-            //luopan.set_transform(0.035); //修正刻度起始位置
-            window.onresize = function (event) {
-                ui_reset(null);
-            }
-
+        var luopan = new Luopan({
+            ele_id: 'luopan',
+            src: './images/luopan-201904-無極.png'
         });
 
         var ui_reset = function (cb) {
             tenline.reset_tenline();
-            luopan.reset_luopan();
+            luopan.reset_luopan(show_luopan);
             var isFun = typeof cb === 'function';
-            if (typeof cb === 'function') {
-                cb();
-            }
+            if (typeof cb === 'function') cb();
         }
 
-        var luopan = new Luopan({
-            element_id: 'luopan',
-            src: './images/luopan-201904-無極.png'
-        });
+        var show_luopan = function (data) {
+            console.log('show_luopan', data);
+        }
+
+        window.onresize = function (event) {
+            ui_reset(null);
+        }
 
         //紫紅藍黑綠
         var colors = ['#730099', '#cc0000', '#0044cc', '#000000', '#006622']
 
         var tenline = new TenLine({
-            element_id: 'tensvg',
+            ele_id: 'tensvg',
             w_id: 'wline',
             h_id: 'hline',
             color_code: colors[1],
             stroke_width: 1
         })
 
-        var auto_run = function (prop) {
+        // var auto_run = function (prop) {
 
-            //setTimeout('run(6)', 3000);
-            window.setInterval(function () {
-                //auto_run(0.125);
-                luopan.set_transform(prop);
-                //console.log(luopan.deg_number)
-            }, 1000);
+        //     //setTimeout('run(6)', 3000);
+        //     window.setInterval(function () {
+        //         //auto_run(0.125);
+        //         luopan.set_transform(prop);
+        //         //console.log(luopan.deg_number)
+        //     }, 1000);
 
-        }
+        // }
 
         var stop_run = function () {
             clearInterval('auto_run');
@@ -168,6 +164,7 @@
 
                 this.showData();
                 //this.dataItems = ;
+                ui_reset(null);
 
             },
             //el methods
