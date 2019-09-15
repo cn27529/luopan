@@ -8,6 +8,7 @@
 var TenLine = function TenLine(props) {
     // this.w_win = w_win; this.h_win = h_win;
 
+    this.src = props.src;
     this.ele_id = props.ele_id;
     this.w_id = props.w_id;
     this.h_id = props.h_id;
@@ -153,7 +154,6 @@ var Luopan = function Luopan(props) {
 
     this.img = function() {
         var luopan = document.querySelector("#" + this.ele_id);
-
         luopan.src = this.src;
         return luopan;
     };
@@ -168,7 +168,6 @@ var Luopan = function Luopan(props) {
 
         var luopan = document.querySelector("#" + this.ele_id);
 
-
         var isFun = typeof cb === 'function';
         if (typeof cb === 'function') {
             luopan.onload = function() {
@@ -180,7 +179,6 @@ var Luopan = function Luopan(props) {
                 cb('the image has failed');
             };
         }
-
         luopan.src = this.src;
 
         var my_left_gap = 0; //修正誤差
