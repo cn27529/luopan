@@ -9,6 +9,7 @@
     <script src="./js/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/luopan.css">
+
     <script src="./js/jQueryRotate.js"></script>
     <script src="./js/luopan.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -18,10 +19,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
 </head>
 
 <body>
     <div class="ts container" id="app">
+
         <!--buttonsbar-->
         <div class="large device only">
             <div class="ts active bottom right snackbar">
@@ -64,9 +67,6 @@
             </div>
         </div>
 
-
-
-
     </div>
     <svg class="tensvg" id="tensvg">
         <!--橫線-->
@@ -84,6 +84,8 @@
         <a class="action"></a>
     </div>
 
+    <div id="loader" style="display: none;"></div>
+
     <script>
         var luopan = new Luopan({
             ele_id: 'luopan',
@@ -99,6 +101,7 @@
 
         var show_luopan = function(data) {
             console.log('show_luopan', data);
+
         }
 
         window.onresize = function(event) {

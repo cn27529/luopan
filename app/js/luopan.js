@@ -5,7 +5,7 @@
 // goo(number) {     luopan.run(number); } function Luopan(obj_id) {     var
 // w_win = $(window).width();     var h_win = $(window).height();
 // this.luopan_id = obj_id;     this.deg_number = 0; } 畫十字線
-function TenLine(props) {
+var TenLine = function TenLine(props) {
     // this.w_win = w_win; this.h_win = h_win;
 
     this.ele_id = props.ele_id;
@@ -20,7 +20,7 @@ function TenLine(props) {
     this.w_svg = 0;
     this.h_svg = 0;
 
-    this.show_line = function (value) {
+    this.show_line = function(value) {
         var tl = document.getElementById(this.ele_id);
 
         if (value) tl.setAttribute("style", "display: block;");
@@ -29,7 +29,7 @@ function TenLine(props) {
         this.reset_tenline();
     };
 
-    this.reset_tenline = function () {
+    this.reset_tenline = function() {
         this.w_win = window.innerWidth; //目前瑩幕寛
         this.h_win = window.innerHeight; //目前瑩幕高
         console.log("reset_tenline");
@@ -94,12 +94,12 @@ function TenLine(props) {
         //   y2: '100%', });
     };
 
-    this.element = function () {
+    this.element = function() {
         return document.querySelector("#" + ele_id);
     };
-}
+};
 
-function Luopan(props) {
+var Luopan = function Luopan(props) {
 
     this.src = props.src;
     this.ele_id = props.ele_id;
@@ -109,7 +109,7 @@ function Luopan(props) {
     this.h_win = window.innerHeight;
     this.my_width = 0;
 
-    this.find_transform = function (props) {
+    this.find_transform = function(props) {
         this.deg_number = props.number;
         //歸零
         var deg = "rotate(0deg)";
@@ -140,7 +140,7 @@ function Luopan(props) {
         return luopan;
     };
 
-    this.set_transform = function (props) {
+    this.set_transform = function(props) {
         if (props.move === "left") {
             this.deg_number -= props.number;
         } else {
@@ -151,13 +151,14 @@ function Luopan(props) {
         document.querySelector("#" + this.ele_id).style.transform = deg;
     };
 
-    this.img = function () {
+    this.img = function() {
         var luopan = document.querySelector("#" + this.ele_id);
+
         luopan.src = this.src;
         return luopan;
     };
 
-    this.reset_luopan = function (cb) {
+    this.reset_luopan = function(cb) {
 
         this.w_win = window.innerWidth;
         this.h_win = window.innerHeight;
@@ -167,13 +168,14 @@ function Luopan(props) {
 
         var luopan = document.querySelector("#" + this.ele_id);
 
+
         var isFun = typeof cb === 'function';
         if (typeof cb === 'function') {
-            luopan.onload = function () {
+            luopan.onload = function() {
                 // the image is ready
-                cb('the image is ready');
+                cb('the image onload is ready');
             };
-            luopan.onerror = function () {
+            luopan.onerror = function() {
                 // the image has failed
                 cb('the image has failed');
             };
@@ -213,7 +215,7 @@ function Luopan(props) {
         //console.log('my_left:' + my_left);
         //my_left = 0;
         var my_style =
-            "border: 0px solid #000000; position: absolute; z-index: -999; top: " +
+            "display:block; border: 0px solid #000000; position: absolute; z-index: -999; top: " +
             my_top +
             "px; left: " +
             my_left +
@@ -229,4 +231,4 @@ function Luopan(props) {
 
         return luopan;
     };
-}
+};
