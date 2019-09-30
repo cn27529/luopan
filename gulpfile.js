@@ -54,7 +54,7 @@ gulp.task("server", ["watch"], function() {
 gulp.task("images", function() {
     gulp
         .src(app.images)
-        .pipe(imagemin()) //壓縮圖片
+        //.pipe(imagemin()) //壓縮圖片
         .pipe(gulp.dest(app.dist + "/images"));
     //.pipe(connect.reload());
 });
@@ -87,7 +87,7 @@ gulp.task("js", function(cb) {
     pump(
         [
             gulp.src(app.js),
-            uglify(), //壓縮JS
+            //uglify(), //壓縮JS
             gulp.dest(app.dist + "/js")
         ],
         cb
