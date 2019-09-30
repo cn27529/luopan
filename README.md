@@ -2,4 +2,4 @@
 
 ## base64-img npm
 
-## https://github.com/douzi8/base64-img
+https://github.com/douzi8/base64-img
