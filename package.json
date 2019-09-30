@@ -32,6 +32,7 @@
         "pump": "^3.0.0"
     },
     "dependencies": {
+        "base64-img": "^1.0.4",
         "bootstrap": "^4.0.0"
     }
 }
